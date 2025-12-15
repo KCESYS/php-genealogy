@@ -83,10 +83,8 @@ class Builder
 
             if ($this->parentsMapper) {
                 $parents = ($this->parentsMapper)($item);
-                \Log::info("Builder - Node ID: {$id}, Parents result:", ['parents' => $parents, 'type' => gettype($parents)]);
                 if (is_iterable($parents)) {
                     foreach ($parents as $pid) {
-                        \Log::info("Builder - Adding parent: {$pid} to node: {$id}");
                         $node->addParent((string)$pid);
                     }
                 }
@@ -105,10 +103,8 @@ class Builder
             }
             if ($this->siblingsMapper) {
                 $siblings = ($this->siblingsMapper)($item);
-                \Log::info("Builder - Node ID: {$id}, Siblings result:", ['siblings' => $siblings, 'type' => gettype($siblings)]);
                 if (is_iterable($siblings)) {
                     foreach ($siblings as $sid) {
-                        \Log::info("Builder - Adding sibling: {$sid} to node: {$id}");
                         $node->addSibling((string)$sid);
                     }
                 }
