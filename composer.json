@@ -8,6 +8,11 @@
             "KCESYS\\Genealogy\\": "src/"
         }
     },
+    "homepage": "https://github.com/KCESYS/php-genealogy",
+    "support": {
+        "issues": "https://github.com/KCESYS/php-genealogy/issues",
+        "source": "https://github.com/KCESYS/php-genealogy"
+    },
     "authors": [
         {
             "name": "KCESYS",
