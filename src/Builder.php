@@ -74,7 +74,7 @@ class Builder
         foreach ($this->items as $item) {
             $id = ($this->idMapper)($item);
             $label = $this->labelMapper ? ($this->labelMapper)($item) : (string)$item;
-            
+
             // Base Data
             $data = $this->dataMapper ? ($this->dataMapper)($item) : [];
             $data['label'] = $label;
@@ -82,16 +82,36 @@ class Builder
             $node = new FamilyNode((string)$id, $data);
 
             if ($this->parentsMapper) {
-                foreach (($this->parentsMapper)($item) as $pid) $node->addParent((string)$pid);
+                $parents = ($this->parentsMapper)($item);
+                \Log::info("Builder - Node ID: {$id}, Parents result:", ['parents' => $parents, 'type' => gettype($parents)]);
+                if (is_iterable($parents)) {
+                    foreach ($parents as $pid) {
+                        \Log::info("Builder - Adding parent: {$pid} to node: {$id}");
+                        $node->addParent((string)$pid);
+                    }
+                }
             }
             if ($this->spousesMapper) {
-                foreach (($this->spousesMapper)($item) as $sid) $node->addSpouse((string)$sid);
+                $spouses = ($this->spousesMapper)($item);
+                if (is_iterable($spouses)) {
+                    foreach ($spouses as $sid) $node->addSpouse((string)$sid);
+                }
             }
             if ($this->childrenMapper) {
-                foreach (($this->childrenMapper)($item) as $cid) $node->addChild((string)$cid);
+                $children = ($this->childrenMapper)($item);
+                if (is_iterable($children)) {
+                    foreach ($children as $cid) $node->addChild((string)$cid);
+                }
             }
             if ($this->siblingsMapper) {
-                foreach (($this->siblingsMapper)($item) as $sid) $node->addSibling((string)$sid);
+                $siblings = ($this->siblingsMapper)($item);
+                \Log::info("Builder - Node ID: {$id}, Siblings result:", ['siblings' => $siblings, 'type' => gettype($siblings)]);
+                if (is_iterable($siblings)) {
+                    foreach ($siblings as $sid) {
+                        \Log::info("Builder - Adding sibling: {$sid} to node: {$id}");
+                        $node->addSibling((string)$sid);
+                    }
+                }
             }
 
             $graph->addNode($node);
