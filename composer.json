@@ -1,0 +1,20 @@
+{
+    "name": "kcesys/php-genealogy",
+    "description": "Framework-agnostic PHP library for genealogy graph structures",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "KCESYS\\Genealogy\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "KCESYS",
+            "email": "dev@kcesys.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1"
+    }
+}
